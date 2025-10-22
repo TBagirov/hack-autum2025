@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: hack-autum
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  mail:
+    host: ${SMTP_HOST}
+    port: 587
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
+    protocol: smtp
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: ${API_PORT}
+
+app:
+  auth:
+    admin-code: ${ADMIN_CODE}
+    password-life-time: ${PASSWORD_LIFE_TIME}
+    token:
+      access-life-time: ${ACCESS_LIFE_TIME}
+      refresh-life-time: ${REFRESH_LIFE_TIME}
+      secret: ${SECRET}

@@ -1,0 +1,41 @@
+x-common:
+  &common
+  env_file: .env
+  networks:
+    - back
+
+services:
+  app:
+    <<: [ *common ]
+    build: .
+    container_name: HACK_API
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - $API_PORT:8088
+
+  postgres:
+    <<: [ *common ]
+    container_name: HACK_POSTGRES
+    image: postgres:${PG_VERSION}
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: ${PG_USERNAME}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    restart: always
+    ports:
+      - $PG_PORT:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "postgres"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+networks:
+  back:
+    driver: bridge
