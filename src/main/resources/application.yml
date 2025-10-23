@@ -24,6 +24,7 @@ server:
 app:
   auth:
     admin-code: ${ADMIN_CODE}
+    admin-password: ${ADMIN_PASSWORD}
     password-life-time: ${PASSWORD_LIFE_TIME}
     token:
       access-life-time: ${ACCESS_LIFE_TIME}
